@@ -41,14 +41,14 @@ class JWTDirectAuthenticator(Authenticator):
         """
         self.log.info("=== JWT DIRECT AUTHENTICATION START ===")
         self.log.info(f"Request URL: {handler.request.uri}")
-        
+
         # Get all headers for debugging
         headers = dict(handler.request.headers)
         self.log.info("All headers received:")
         for name, value in headers.items():
             if any(keyword in name.lower() for keyword in ['auth', 'user', 'remote']):
                 self.log.info(f"  {name}: {value}")
-        
+
         # Method 1: Check headers set by your backend (primary method)
         remote_user = headers.get('Remote-User', '').strip()
         x_auth_user = headers.get('X-Auth-User', '').strip()
@@ -82,7 +82,7 @@ class JWTDirectAuthenticator(Authenticator):
                 }
             else:
                 self.log.warning("User header present but signed headers invalid/missing; will try token fallbacks")
-        
+
         # Method 2: Fallback to JWT token in query parameters
         try:
             token_param = handler.get_argument('token', None)
@@ -114,7 +114,7 @@ class JWTDirectAuthenticator(Authenticator):
                     }
         except Exception as e:
             self.log.error(f"JWT query param decode error: {e}")
-        
+
         # Method 3: Check Authorization header as fallback
         auth_header = headers.get('Authorization', '')
         if auth_header.startswith('Bearer '):
@@ -154,11 +154,11 @@ class JWTDirectAuthenticator(Authenticator):
                     }
             except Exception as e:
                 self.log.error(f"Authorization header JWT decode error: {e}")
-        
+
         self.log.error("JWT DIRECT AUTHENTICATION FAILED")
         self.log.error("No valid authentication method found")
         return None
-    
+
     def get_handlers(self, app):
         """
         Override to prevent default login form

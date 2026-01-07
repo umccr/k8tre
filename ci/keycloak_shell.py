@@ -1,14 +1,14 @@
-""" 
+"""
 This script is used to interact with the Keycloak admin API.
 It can be used to list users, create users, create groups, add users to groups, reset passwords, and delete users.
 It can also be used to create realms, clients, client scopes, and client roles.
 """
-# These are the environment variables that can be used 
+# These are the environment variables that can be used
 #to configure the Keycloak admin API.
-# export KC_URL="http://localhost:8081"       
-# export KC_ADMIN="user"                     
+# export KC_URL="http://localhost:8081"
+# export KC_ADMIN="user"
 # export KC_REALM="k8tre-app
-# export KC_PASSWORD="your-admin-password" 
+# export KC_PASSWORD="your-admin-password" # pragma: allowlist secret
 
 import cmd
 import os
@@ -44,9 +44,9 @@ class KeycloakShell(cmd.Cmd):
 
     def do_add_user(self, arg):
         """ Create a new user.
-            
+
             Usage: add_user username password
-            
+
             Args:
                 arg (str): username and password separated by a space.
         """
@@ -73,9 +73,9 @@ class KeycloakShell(cmd.Cmd):
 
     def do_add_group(self, arg):
         """ Create a new group in the realm.
-            
+
             Usage: add_group groupname
-            
+
             Args:
                 arg (str): groupname
         """
@@ -91,9 +91,9 @@ class KeycloakShell(cmd.Cmd):
 
     def do_add_to_group(self, arg):
         """ Add a user to a group.
-            
+
             Usage: add_user_to_group username groupname
-            
+
             Args:
                 arg (str): username and groupname separated by a space.
         """
@@ -123,9 +123,9 @@ class KeycloakShell(cmd.Cmd):
 
     def do_reset_password(self, arg):
         """ Reset the password for a user.
-            
+
             Usage: reset_password username newpassword
-            
+
             Args:
                 arg (str): username and newpassword separated by a space.
         """
@@ -144,9 +144,9 @@ class KeycloakShell(cmd.Cmd):
 
     def do_delete_user(self, arg):
         """ Delete a user from the realm.
-            
+
             Usage: delete_user username
-            
+
             Args:
                 arg (str): username
         """
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     pw = os.environ.get("KC_PASSWORD", "admin")
     realm = os.environ.get("KC_REALM", "k8tre-app")
     shell = KeycloakShell(url, admin, pw, realm)
-   
+
     try:
         shell.cmdloop()
     except KeyboardInterrupt:

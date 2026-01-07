@@ -1,6 +1,6 @@
 # K8TRE Specification To Implementation
 
-This page documents the relationship between the K8TRE specification and the K8TRE reference implementation. 
+This page documents the relationship between the K8TRE specification and the K8TRE reference implementation.
 
 _Work in Progress_
 
@@ -11,7 +11,7 @@ The K8TRE Reference Implementation will be agnostic to whether a deployment supp
 
 ### Container Runtimes
 
-The K8TRE Reference Implementation uses the default high- and low-level container runtimes in the EKS, AKS, K3S Kubernetes distributions. 
+The K8TRE Reference Implementation uses the default high- and low-level container runtimes in the EKS, AKS, K3S Kubernetes distributions.
 
 ### Databases
 
@@ -27,7 +27,7 @@ The K8TRE Reference Implementation uses ArgoCD installed on a management cluster
 
 ### Ingress
 
-Currently implements an NGINX Ingress Controller 
+Currently implements an NGINX Ingress Controller
 
 ### Networking
 

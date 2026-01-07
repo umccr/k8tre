@@ -14,7 +14,7 @@ podLabels:
 extraVolumes:
   - name: azure-config-file
     secret:
-      secretName: external-dns-azure
+      secretName: external-dns-azure # pragma: allowlist secret
 
 extraVolumeMounts:
   - name: azure-config-file

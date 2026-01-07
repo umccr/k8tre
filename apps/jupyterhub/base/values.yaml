@@ -52,7 +52,7 @@ hub:
           spawner.log.info(f"=== SPAWNING FOR USER: {spawner.user.name} ===")
           spawner.log.info(f"Expected base_url: /user/{spawner.user.name}/")
           return spawner
-      
+
       c.Spawner.pre_spawn_hook = debug_spawn_check
       c.KubeSpawner.name_template = 'jupyter-{username}'
       c.KubeSpawner.pod_name_template = 'jupyter-{username}'
@@ -73,7 +73,7 @@ hub:
       c.KubeSpawner.user_storage_pvc_ensure = True
       c.KubeSpawner.storage_pvc_ensure = True
     04-cors-dual-domain: |
-      # Allow requests from both domains  
+      # Allow requests from both domains
       c.JupyterHub.tornado_settings = {
           'headers': {
               'Access-Control-Allow-Origin': '*',
@@ -104,4 +104,4 @@ ingress:
   tls:
     - hosts:
         - jupyter.${ENVIRONMENT}.${DOMAIN}
-      secretName: xk8tre-tls
+      secretName: xk8tre-tls # pragma: allowlist secret

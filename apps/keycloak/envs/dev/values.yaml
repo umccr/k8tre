@@ -4,9 +4,9 @@ externalDatabase:
   host: keycloak-postgres-cluster-rw
   database: keycloak
   port: 5432
-  existingSecret: keycloak-db-secret
-  existingSecretUserKey: username
-  existingSecretPasswordKey: password
+  existingSecret: keycloak-db-secret # pragma: allowlist secret
+  existingSecretUserKey: username # pragma: allowlist secret
+  existingSecretPasswordKey: password # pragma: allowlist secret
 ingress:
   enabled: true
   ingressClassName: nginx
@@ -16,13 +16,13 @@ ingress:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   tls: true
   extraTls:
-    - secretName: keycloak-k8tre-tls
+    - secretName: keycloak-k8tre-tls # pragma: allowlist secret
       hosts:
         - keycloak.dev.k8tre.internal
 auth:
   adminUser: admin
-  existingSecret: keycloak-admin-secret
-  passwordSecretKey: admin-password
+  existingSecret: keycloak-admin-secret # pragma: allowlist secret
+  passwordSecretKey: admin-password # pragma: allowlist secret
 
 logging:
   level: DEBUG

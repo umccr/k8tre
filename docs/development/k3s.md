@@ -132,13 +132,13 @@ See https://metallb.universe.tf/configuration/ and https://metallb.universe.tf/c
 
 Metallb needs to be configured with an IP address pool which needs to be _advertised'.
 
-For instance, 
+For instance,
 
 ```yaml
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: default-pool 
+  name: default-pool
   namespace: metallb-system
 spec:
   addresses:
@@ -154,7 +154,7 @@ spec:
   - default-pool
 ```
 
-Create a yaml file with the above configuration and apply to your cluster. 
+Create a yaml file with the above configuration and apply to your cluster.
 
 **This is a temporary workaround while we integrate this into the ArgoCD workflow for k3s.**
 
@@ -184,7 +184,7 @@ Edit each kubeconfig file to rename clusters and users:
 
 ```bash
 # Edit mgmt-kubeconfig.yaml to change:
-# - cluster name to "k3s-mgmt" 
+# - cluster name to "k3s-mgmt"
 # - user name to "admin-mgmt"
 
 # Edit dev-kubeconfig.yaml to change:

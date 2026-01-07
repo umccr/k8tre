@@ -7,7 +7,7 @@ USER root
 
 # Application versions
 
-ARG ARGOCD_VERSION='3.0.0' 
+ARG ARGOCD_VERSION='3.0.0'
 ARG KUBESEAL_VERSION='0.29.0'
 
 RUN apt-get update \
@@ -21,7 +21,7 @@ RUN apt-get update \
     make \
     software-properties-common \
     unzip \
-    wget 
+    wget
 
 # Install ArgoCD CLI
 RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/$ARGOCD_VERSION/argocd-linux-amd64  \

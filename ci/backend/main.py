@@ -107,7 +107,7 @@ templates = Jinja2Templates(directory="templates")
 oauth = OAuth()
 
 keycloak_internal_url = os.environ.get(
-    "KEYCLOAK_INTERNAL_URL", 
+    "KEYCLOAK_INTERNAL_URL",
     "http://keycloak.keycloak"
 )
 keycloak_external_url = os.environ.get("KEYCLOAK_EXTERNAL_URL", build_service_url("keycloak"))
@@ -121,10 +121,10 @@ oauth.register(
     name='keycloak',
     client_id=os.environ["KEYCLOAK_CLIENT_ID"],
     client_secret=os.environ["KEYCLOAK_CLIENT_SECRET"],
-    authorize_url=f"{external_base}/protocol/openid-connect/auth",    
+    authorize_url=f"{external_base}/protocol/openid-connect/auth",
     access_token_url=f"{internal_base}/protocol/openid-connect/token",
-    userinfo_url=f"{internal_base}/protocol/openid-connect/userinfo", 
-    jwks_uri=f"{external_base}/protocol/openid-connect/certs",        
+    userinfo_url=f"{internal_base}/protocol/openid-connect/userinfo",
+    jwks_uri=f"{external_base}/protocol/openid-connect/certs",
     end_session_url=f"{external_base}/protocol/openid-connect/logout",
     issuer=external_base,
     client_kwargs={
@@ -464,17 +464,17 @@ def check_token_expiry(token):
     """
     if not token:
         return True, 0
-    
+
     try:
         # Decode without verification to check expiry
         decoded = jwt.decode(token, options={"verify_signature": False})
         exp = decoded.get('exp', 0)
         current_time = int(time.time())
-        
+
         # Consider expired if expires within 5 minutes (300 seconds)
         expires_soon = (exp - current_time) < 300
         time_left = exp - current_time
-        
+
         return expires_soon, time_left
     except Exception as e:
         print(f"Token expiry check failed: {e}", flush=True)
@@ -588,7 +588,7 @@ async def auth_callback(request: Request):
                 userinfo_url,
                 headers={"Authorization": f"Bearer {access_token}"}
             )
-            
+
         if response.status_code == 200:
             user = response.json()
             username = user.get('preferred_username', 'unknown')
@@ -660,10 +660,10 @@ async def logout(request: Request):
     refresh_token = request.session.get("refresh_token")
 
     request.session.clear()
-    
+
     if username in active_user_sessions:
         del active_user_sessions[username]
-    
+
     await revoke_user_tokens(username, token, refresh_token)
     response = RedirectResponse("/logged-out")
     response.delete_cookie("k8tre-session")
@@ -709,19 +709,19 @@ async def cleanup_session(request: Request):
     """
     # Get user info from auth headers
     username = request.headers.get("X-Auth-User")
-    
+
     if not username:
         return {"status": "no_user"}
-    
+
     # Get stored tokens for this user
     user_session = active_user_sessions.get(username)
     if user_session:
         await revoke_user_tokens(
-            username, 
-            user_session.get("token"), 
+            username,
+            user_session.get("token"),
             user_session.get("refresh_token")
         )
-        
+
     del active_user_sessions[username]
 
     return {"status": "cleaned", "user": username}
@@ -821,7 +821,7 @@ async def auth_validate(request: Request):
     project = q.get("project", [None])[0]
     if not project:
         project = request.cookies.get("k8tre-project", "")
-    
+
     if not token and path.startswith("/hub/login") and "next" in q:
         np = urllib.parse.urlparse(q["next"][0])
         same_host_or_path = (not np.netloc) or (np.netloc == p.netloc)
@@ -979,22 +979,22 @@ def is_static_resource(url, config=None):
 
     if not config.get("enabled", True):
         return False
-        
+
     # Check patterns first
     for pattern in config.get("patterns", []):
         if pattern in url:
             return True
-    
+
     # Check file extensions
     for ext in config.get("extensions", []):
         if url.endswith(ext):
             return True
-    
+
     path = urlparse(url).path
     for pattern in STATIC_ALLOWLIST_PATTERNS:
         if re.match(pattern, path):
             return True
-            
+
     return False
 
 def require_user(request: Request):
@@ -1012,7 +1012,7 @@ async def custom_http_exception_handler(request: Request, exc: FastAPIHTTPExcept
     """
     if exc.status_code == 401:
         return templates.TemplateResponse(
-            "error.html", 
+            "error.html",
             {"request": request, "error": "You are not authenticated. Please login to continue."},
             status_code=401
         )
@@ -1111,11 +1111,11 @@ def get_profiles_internal(project: str):
         profiles = project_cr['spec'].get('profiles', [])
         print(f"Profiles for project '{project}': {profiles}", flush=True)
         return JSONResponse(content={"profiles": profiles})
-    
+
     except Exception as e:
         print(f"Error fetching profiles for project '{project}': {e}", flush=True)
         return JSONResponse(
-            {"error": f"Project not found: {e}"}, 
+            {"error": f"Project not found: {e}"},
             status_code=404
         )
 
@@ -1615,19 +1615,19 @@ def get_vdi_instances(request: Request, user=Depends(require_user)):
     """ Show user's VDI instances with shutdown option
     """
     username = user["preferred_username"]
-    
+
     try:
         # Get all VDI instances for this user
         vdi_instances = []
         crd = k8s_api.list_namespaced_custom_object(
             group="k8tre.io", version="v1alpha1", namespace="jupyterhub", plural="vdiinstances"
         )
-        
+
         for vdi in crd.get("items", []):
             spec = vdi.get("spec", {})
             status = vdi.get("status", {})
             metadata = vdi.get("metadata", {})
-            
+
             if spec.get("user") == username:
                 vdi_instances.append({
                     "name": metadata.get("name"),
@@ -1637,15 +1637,15 @@ def get_vdi_instances(request: Request, user=Depends(require_user)):
                     "created": metadata.get("creationTimestamp"),
                     "has_password": bool(status.get("password"))
                 })
-        
+
         return templates.TemplateResponse(
             "vdi.html",
             {"request": request, "user": user, "vdi_instances": vdi_instances}
         )
-        
+
     except Exception as e:
         return templates.TemplateResponse(
-            "error.html", 
+            "error.html",
             {"request": request, "error": f"Failed to fetch VDI instances: {e}"}
         )
 
@@ -1667,7 +1667,7 @@ async def vdi_refresh_token(
                 raise HTTPException(status_code=403, detail="Token user mismatch")
         except:
             pass
-        
+
         # Use refresh token to get new access token
         async with httpx.AsyncClient(verify=False) as client:
             response = await client.post(
@@ -1680,12 +1680,12 @@ async def vdi_refresh_token(
                 },
                 headers={"Content-Type": "application/x-www-form-urlencoded"}
             )
-        
+
         if response.status_code == 200:
             token_data = response.json()
             new_access_token = token_data["access_token"]
             new_refresh_token = token_data.get("refresh_token", refresh_token)
-            
+
             return {
                 "token": new_access_token,
                 "refresh_token": new_refresh_token,
@@ -1694,7 +1694,7 @@ async def vdi_refresh_token(
             }
         else:
             return JSONResponse({"error": "Token refresh failed"}, status_code=401)
-            
+
     except Exception as e:
         print(f"VDI token refresh error: {e}", flush=True)
         return JSONResponse({"error": "Token refresh failed"}, status_code=401)
@@ -1711,12 +1711,12 @@ async def refresh_token_api(
         decoded = jwt.decode(current_token, options={"verify_signature": False})
         exp = decoded.get('exp', 0)
         current_time = int(time.time())
-        
+
         if exp - current_time > 300:  # Token valid for more than 5 minutes
             return {"token": current_token, "status": "valid"}
-        
+
         return {"token": current_token, "status": "valid"}
-        
+
     except Exception as e:
         return JSONResponse({"error": "Token refresh failed"}, status_code=401)
 

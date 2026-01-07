@@ -55,9 +55,9 @@ ingress:
   className: nginx
   host: cr8tor.${ENVIRONMENT}.${DOMAIN}
   tls:
-    secretName: xk8tre-tls
+    secretName: xk8tre-tls # pragma: allowlist secret
 
-storage: 
+storage:
   k8tre:
     env: TARGET_STORAGE_ACCOUNT_K8TRE_MNT_PATH
     mountPath: /home/appuser/outputs/k8tre
@@ -109,4 +109,3 @@ storage:
         storageClassName: rwx-default
         accessModes:
         - ReadWriteMany
-

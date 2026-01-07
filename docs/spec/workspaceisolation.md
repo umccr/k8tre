@@ -1,7 +1,7 @@
 ---
 topic: Workspace Isolation
 last_updated: 2025-11-25
-discussion: 
+discussion:
 k8tre_statements:
   spec: Project workspaces must be isolated from each other and the internet to prevent unauthorised access to data and resources, regardless of the underlying infrastructure. Intra-project shared services must only be accessible to users within the same project.
   satre:
@@ -12,7 +12,7 @@ k8tre_statements:
     - ref: 2.2.10
       rationale: SATRE requires TRE operators to disallow connectivity between users in different projects, so K8TRE components must support this project-level isolation.
     - ref: 2.2.11
-      rationale: SATRE requires TRE operators to block outbound connections to the internet by default, so K8TRE components must support this project-level isolation.  
+      rationale: SATRE requires TRE operators to block outbound connections to the internet by default, so K8TRE components must support this project-level isolation.
 ---
 
 {{ spec_content(page.meta) }}

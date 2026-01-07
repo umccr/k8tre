@@ -1,9 +1,9 @@
 # Applications
 
-K8TRE implements a highly flexible and configurable pattern for deploying applications and microservices in a consistent manner across diverse environments. 
+K8TRE implements a highly flexible and configurable pattern for deploying applications and microservices in a consistent manner across diverse environments.
 Microservices architecture allows K8TRE to use swappable components, add in new capabilities easily and enable or disable components as required.
 
-The application layer of K8TRE should be deployable to any CNCF-certified Kubernetes distribution as long as the para-cluster infrastructure pre-requisites are met and the [_agnostics_ application plane](agnostics.md) can be deployed successfully. 
+The application layer of K8TRE should be deployable to any CNCF-certified Kubernetes distribution as long as the para-cluster infrastructure pre-requisites are met and the [_agnostics_ application plane](agnostics.md) can be deployed successfully.
 
 ## KeyCloak
 

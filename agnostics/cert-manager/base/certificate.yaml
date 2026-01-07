@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: xk8tre-tls
 spec:
-  secretName: xk8tre-tls
+  secretName: xk8tre-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
   commonName: base.k8tre.internal

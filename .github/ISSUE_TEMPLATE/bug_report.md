@@ -21,11 +21,11 @@ If applicable, add screenshots and/or logs to help explain your problem.
 
 **Kubernetes Cluster Details:**
  - OS: [e.g. Ubuntu 24.04]
- - Kubernetes Vendor [e.g. K3S]: 
- - Kubernetes Version: 
- - ArgoCD Version: 
- - Virtualisation [None/Baremetal, VM. Docker eg. KinD]: 
- - Cloud-provider: 
+ - Kubernetes Vendor [e.g. K3S]:
+ - Kubernetes Version:
+ - ArgoCD Version:
+ - Virtualisation [None/Baremetal, VM. Docker eg. KinD]:
+ - Cloud-provider:
 
 **Additional context**
 Add any other context about the problem here.

@@ -1,7 +1,7 @@
 site_name: K8TRE
 site_description: SATRE-Compliant TRE implementation on Kubernetes
 site_author: K8TRE Team
-repo_url: https://github.com/k8tre/k8tre
+repo_url: https://github.com/umccr/k8tre
 repo_name: k8tre/k8tre
 
 theme:
@@ -12,7 +12,7 @@ theme:
       primary: deep purple
       accent: deep purple
       toggle:
-        icon: material/brightness-7 
+        icon: material/brightness-7
         name: Switch to dark mode
 
     # Palette toggle for dark mode
@@ -62,7 +62,7 @@ nav:
   - Specification:
       - Introduction: spec/README.md
       - Glossary: spec/glossary.md
-      - The K8TRE Specification: 
+      - The K8TRE Specification:
         #  - Asset Management : spec/assetmanagement.md
           - BYO Software : spec/byosoftware.md
           - Container Runtimes : spec/containerruntimes.md
@@ -78,7 +78,7 @@ nav:
           - Secrets : spec/secrets.md
           - Storage : spec/storage.md
           - Workspace Isolation: spec/workspaceisolation.md
-  - Implementation: 
+  - Implementation:
       - Infrastructure: implementation/architecture.md
       - ArgoCD: implementation/argocd.md
       - Agnostics: implementation/agnostics.md
@@ -95,4 +95,3 @@ nav:
       - Installation: guides/installation.md
       - Workspace Access: guides/workspace-access.md
   - Contributing: contributing.md
-  

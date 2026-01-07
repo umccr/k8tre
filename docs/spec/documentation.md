@@ -1,7 +1,7 @@
 ---
 topic: Documentation
 last_updated: 2025-11-25
-discussion: 
+discussion:
 k8tre_statements:
   spec: All TRE components, or entire TREs developed by TRE developers, must have discoverable and clear documentation pertaining to all the component or TRE's features. This includes guidance for end users and TRE operators.
   satre:

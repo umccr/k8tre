@@ -11,7 +11,7 @@ http:
 postgresql:
   enabled: false
 
-extraEnv: |
+extraEnv: | # pragma: allowlist secret
   - name: KEYCLOAK_ADMIN
     valueFrom:
       secretKeyRef:
@@ -37,7 +37,7 @@ database:
   port: 5432
   database: keycloak
   username: keycloak-user
-  existingSecret: keycloak-db-secret
+  existingSecret: keycloak-db-secret # pragma: allowlist secret
 
 resources:
   limits:

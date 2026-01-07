@@ -17,7 +17,7 @@ metadata:
 spec:
   description: "Admins of asthma"
   projects:
-    - asthma 
+    - asthma
   members:
     - alwin
 ---

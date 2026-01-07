@@ -4,7 +4,7 @@ metadata:
   name: xk8tre-tls
   namespace: keycloak
 spec:
-  secretName: keycloak.${ENVIRONMENT}.${DOMAIN}-tls
+  secretName: keycloak.${ENVIRONMENT}.${DOMAIN}-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
   commonName: keycloak.${ENVIRONMENT}.${DOMAIN}

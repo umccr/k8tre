@@ -6,18 +6,18 @@ hub:
     JupyterHub:
       authenticator_class: native
       admin_access: false
-  
+
   replicas: 2
 
 singleuser:
   image:
     name: jupyter/datascience-notebook
     tag: latest
-  
+
   storage:
     type: dynamic
     capacity: 1Gi
-  
+
   resources:
     limits:
       cpu: 0.5

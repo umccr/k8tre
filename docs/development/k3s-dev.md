@@ -2,7 +2,7 @@
 
 This documentation guides you through creating an all-in-one development environment using a single K3s cluster (ArgoCD is deployment in the same cluster as a K8TRE dev deployment).
 
-These instructions are also used for automatically testing K8TRE in [GitHub actions](https://github.com/k8tre/k8tre/actions/workflows/test.yaml).
+These instructions are also used for automatically testing K8TRE in [GitHub actions](https://github.com/umccr/k8tre/actions/workflows/test.yaml).
 For more hands-on instructions with explanations see [k3s.md](k3s.md).
 
 ## Prerequisites
@@ -84,7 +84,7 @@ argocd cluster set in-cluster \
   --label environment=dev \
   --label secret-store=kubernetes \
   --label vendor=k3s \
-  
+
 argocd cluster get in-cluster
 ```
 

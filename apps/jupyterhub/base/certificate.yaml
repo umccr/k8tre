@@ -4,7 +4,7 @@ metadata:
   name: xk8tre-tls
   namespace: jupyterhub
 spec:
-  secretName: xk8tre-tls
+  secretName: xk8tre-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
   commonName: jupyter.${ENVIRONMENT}.${DOMAIN}

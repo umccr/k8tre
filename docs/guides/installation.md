@@ -6,8 +6,8 @@ Before we can get cracking with K8TRE, we first need a Kubernetes (K8s) cluster 
 !!! note
     All code blocks below coloured blue should be run on the host machine, while grey block commands should be run inside the Ubuntu VM
 
-## Prepare VM node 
-There are multiple ways to stand up and access a linux-based VM whether on a local machine or via some remote cloud resource. This guide assumes you have a local machine (Laptop?) without any existing framework for managing and deploying VMs. Although, if you already have an available framework setup (e.g. VirtualBox, VMware, etc) feel free to skip to the next section. 
+## Prepare VM node
+There are multiple ways to stand up and access a linux-based VM whether on a local machine or via some remote cloud resource. This guide assumes you have a local machine (Laptop?) without any existing framework for managing and deploying VMs. Although, if you already have an available framework setup (e.g. VirtualBox, VMware, etc) feel free to skip to the next section.
 
 To spin up a local Ubuntu-based VM follow the instructions below based on your local machine OS:
 
@@ -19,7 +19,7 @@ To spin up a local Ubuntu-based VM follow the instructions below based on your l
         ```shell
         brew install --cask multipass
         ```
-       
+
     2. Check multipass is installed and accessible from terminal:
        <div class="code-blue">
         ```shell
@@ -63,7 +63,7 @@ To spin up a local Ubuntu-based VM follow the instructions below based on your l
         multipass shell k8tre-vm
         ```
         </div>
-        
+
 === "Windows"
 
     ### Option 1: Multipass
@@ -110,7 +110,7 @@ To spin up a local Ubuntu-based VM follow the instructions below based on your l
             multipass purge
             ```
             </div>
-            
+
             To find your available network adapters, run:
             <div class="code-blue">
             ```powershell
@@ -195,12 +195,12 @@ To spin up a local Ubuntu-based VM follow the instructions below based on your l
             sudo apt install open-vm-tools
         ```
         </div>
-        
+
 
     6. Access VM terminal:
         - Open the VM console in VMware Workstation, or
         - SSH to the VM using the IP shown in VMware (run `ip a` in VM to find IP)
-    
+
 
 ## Kubernetes Cluster (K3s)
 At this point, we're ready to install [K3s](https://k3s.io/), a lightweight Kubernetes cluster distribution. You should have a target VM running Ubuntu 24.04 on your local host machine (or maybe remotely) accessible via your chosen command line tool.
@@ -232,8 +232,8 @@ Ensure the logged in user (e.g. ubuntu) can access the cluster by setting the us
 ```shell
 mkdir -p ~/.kube
 sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
-echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc; source ~/.bashrc 
-``` 
+echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc; source ~/.bashrc
+```
 At this point you should be able to verify access to the k8s cluster using kubectl:
 ```shell
 kubectl get pods -n kube-system
@@ -279,7 +279,7 @@ In addition, install the portmap cilium CNI plugin for hostport support:
 ```shell
 sudo mkdir -p /opt/cni/bin/
 curl -sfSL https://github.com/containernetworking/plugins/releases/download/v1.7.1/cni-plugins-linux-${CLI_ARCH}-v1.7.1.tgz | sudo tar -zxvf - -C /opt/cni/bin/ ./portmap
-``` 
+```
 
 To ensure that Cilium is ready and configured in the cluster run:
 ```shell
@@ -320,7 +320,7 @@ Apply the changes (i.e. ESC, :wq + Enter) to coreDNS:
 ```shell
 kubectl rollout restart deployment coredns -n kube-system
 ```
-Then re-run to confirm cluster DNS forwarding is working: 
+Then re-run to confirm cluster DNS forwarding is working:
 ```shell
 kubectl run dnsutils --image=busybox:1.28 --restart=Never -it --rm -- nslookup github.com
 ```
@@ -377,7 +377,7 @@ This command sets required labels on the target cluster which ArgoCD uses to ens
     The `external-domain` label defines the base domain used for all K8TRE services (e.g., `keycloak.stg.k8tre.org`, `jupyter.stg.k8tre.org`). Change `k8tre.org` to your own domain name.
 
 !!! note
-    Specify a IP range for the local load balancer (metallb-ip-range) that is accessible from the bridge network your VM is bound. To check the network in use, follow the steps for your host OS below:  
+    Specify a IP range for the local load balancer (metallb-ip-range) that is accessible from the bridge network your VM is bound. To check the network in use, follow the steps for your host OS below:
 
 To identity the IP range of the VM network run:
 
@@ -388,7 +388,7 @@ ip route | grep default
 This will return the network gateway IP e.g.:
 ```shell
 default via 172.26.64.1 dev eth0 proto dhcp src 172.26.68.121 metric 100
-``` 
+```
 
 Using 172.26.64.1 (and assuming a 255.255.255.0 net mask) i.e. 172.26.64.0-172.26.64.255 a example subnet for metallb-ip-range could be **172.26.64.240-172.26.64.250**
 
@@ -503,7 +503,7 @@ kubectl rollout status deployment argocd-repo-server -n argocd
 **6. Add Cilium Network Policy**
 
 The command below adds a networking policy that allows specific argocd services egress:
- 
+
 ```shell
 kubectl apply -f - << 'EOF'
 apiVersion: cilium.io/v2
@@ -536,7 +536,7 @@ EOF
 ```
 
 ## K8TRE
-You should now have a minimal VM and k3s cluster configuration (i.e. cilium, ArgoCD) to install K8TRE. To do this, we need to first configure ArgoCD to listen to the K8TRE repository that contains the agnostic/application definitions which ArgoCD will use to reconcile and deploy all specified resources in to the cluster. It is recommended that you point ArgoCD [K8TRE repository](https://github.com/k8tre/k8tre) for the purposes of this quickstart guide. However, if you plan to make changes to the vanilla K8TRE deployment, we recommend you fork it into your own git organisation and then configure ArgoCD to read from that particular repository and target revision. The K8TRE repository follows a common ArgoCD App-of-Apps pattern which is important to understand when looking to extend the base K8TRE configuration, see [here](https://medium.com/@andersondario/argocd-app-of-apps-a-gitops-approach-52b17a919a66) for more details.
+You should now have a minimal VM and k3s cluster configuration (i.e. cilium, ArgoCD) to install K8TRE. To do this, we need to first configure ArgoCD to listen to the K8TRE repository that contains the agnostic/application definitions which ArgoCD will use to reconcile and deploy all specified resources in to the cluster. It is recommended that you point ArgoCD [K8TRE repository](https://github.com/umccr/k8tre) for the purposes of this quickstart guide. However, if you plan to make changes to the vanilla K8TRE deployment, we recommend you fork it into your own git organisation and then configure ArgoCD to read from that particular repository and target revision. The K8TRE repository follows a common ArgoCD App-of-Apps pattern which is important to understand when looking to extend the base K8TRE configuration, see [here](https://medium.com/@andersondario/argocd-app-of-apps-a-gitops-approach-52b17a919a66) for more details.
 
 **1. Add Target Repository**
 
@@ -556,7 +556,7 @@ On the VM, clone the target K8TRE argo AoA repository:
 ```shell
 git clone -b $GITHUB_REVISION https://github.com/$GITHUB_ORG/$GITHUB_REPOSITORY.git && cd k8tre
 ```
-Modify the default K8TRE root app-of-apps manifest so that it reads from the correct git repository and branch: 
+Modify the default K8TRE root app-of-apps manifest so that it reads from the correct git repository and branch:
 
 ```shell
 sed -i -e "s%/k8tre/k8tre%/${GITHUB_ORG}/${GITHUB_REPOSITORY}%" -e "s%main%${GITHUB_REVISION}%" app_of_apps/root-app-of-apps.yaml
@@ -589,7 +589,7 @@ On your host machine, create a persistent DNS configuration matching the environ
     ```shell
     sudo mkdir -p /etc/resolver
     ```
-    
+
     ```shell
     sudo tee /etc/resolver/stg.k8tre.org << EOF
     nameserver <kare-dns-EXTERNAL-IP>
@@ -643,18 +643,18 @@ On your host machine, create a persistent DNS configuration matching the environ
     Result: vEthernet (Default Switch) - the Hyper-V adapter
 
     Only queries for stg.k8tre.org go to kare-dns
-    
+
     ```shell
     Add-DnsClientNrptRule -Namespace "stg.k8tre.org" -NameServers @("172.26.64.212")
     ```
-    
+
     Set primary and secondary DNS servers
     Primary: kare-dns (172.26.71.210)
     Secondary: Google DNS (8.8.8.8) for other domains
     Set-DnsClientServerAddress -InterfaceAlias "vEthernet (Default Switch)" -ServerAddresses ("172.26.64.212", "8.8.8.8")
 
     Flush DNS cache
-    
+
     ```shell
     ipconfig /flushdns
     ```
@@ -733,4 +733,3 @@ Now you have K8TRE running, why not try to access the default portal and open a 
 [Access a K8TRE Analytics Workspace](workspace-access.md)
 
 [Developing K8TRE Components](../development/developer-guide.md)
-

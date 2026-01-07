@@ -4,7 +4,7 @@ metadata:
   name: gitea-tls
   namespace: gitea
 spec:
-  secretName: gitea-tls
+  secretName: gitea-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
   commonName: gitea.${ENVIRONMENT}.${DOMAIN}

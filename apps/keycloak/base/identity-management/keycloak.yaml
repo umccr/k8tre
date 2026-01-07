@@ -15,7 +15,7 @@ spec:
   webOrigins:
     - https://jupyter.${ENVIRONMENT}.${DOMAIN}
   defaultClientScopes:
-    - openid 
+    - openid
     - web-origins
     - roles
     - profile

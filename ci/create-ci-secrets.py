@@ -183,10 +183,10 @@ class CISecretsManager:
         try:
             secret_exists = self.check_secret_exists(secret_name)
             final_data = data.copy()
-            
+
             if secret_exists:
                 self.existing_secrets.append(secret_name)
-                
+
                 if self.merge_keys:
                     # Merge with existing secret data
                     existing_data = self.get_existing_secret_data(secret_name)
@@ -194,7 +194,7 @@ class CISecretsManager:
                     final_data = existing_data.copy()
                     final_data.update(data)
                     self.merged_secrets.append(secret_name)
-                    
+
                     if self.dry_run:
                         console.print(
                             f"[yellow]Would merge keys into existing secret: {secret_name}[/yellow]"
@@ -256,7 +256,7 @@ class CISecretsManager:
             )
 
             self.v1.create_namespaced_secret(namespace=self.namespace, body=secret_body)
-            
+
             if secret_exists and self.merge_keys:
                 console.print(f"[green]✓[/green] Merged keys into secret: {secret_name}")
             elif secret_exists and self.overwrite:
@@ -315,7 +315,7 @@ class CISecretsManager:
 
                 if self.create_generic_secret(secret_name, processed_data):
                     success_count += 1
-            elif secret_type == "tls":
+            elif secret_type == "tls": # pragma: allowlist secret
                 # TLS secrets are now managed by cert-manager, skipping
                 console.print(
                     f"[yellow]⚠[/yellow] TLS secret '{secret_name}' is managed by cert-manager, skipping creation."
@@ -432,13 +432,13 @@ def main(
       # Traditional python execution (requires virtual environment)
       python create-ci-secrets.py --context k3d-dev --dry-run --merge-keys
     """
-    
+
     # Validate conflicting options
     if overwrite and merge_keys:
         console.print("[red]Error: --overwrite and --merge-keys options are mutually exclusive.[/red]")
         console.print("[yellow]Use --overwrite to completely replace existing secrets, or --merge-keys to add new keys to existing secrets.[/yellow]")
         raise typer.Exit(code=1)
-    
+
     # Initialize secrets manager
     manager = CISecretsManager(
         context=context, namespace=namespace, dry_run=dry_run, overwrite=overwrite, merge_keys=merge_keys

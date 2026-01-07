@@ -16,7 +16,7 @@ def define_env(env):
                 ref = item.get("ref", "No ref")
                 rationale = item.get("rationale", "No rationale provided.")
                 satre_md += f"""
-**Component {ref}**  
+**Component {ref}**
 {rationale}
 """
 
@@ -26,7 +26,7 @@ def define_env(env):
 !!! abstract "Specification"
     {statement}
 
-Last updated: {updated}  
+Last updated: {updated}
 Source: {source}
 
 {satre_md}
