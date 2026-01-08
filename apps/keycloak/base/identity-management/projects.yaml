@@ -73,7 +73,7 @@ spec:
         quota: "2CPU"
     - name: guacamole
       type: vdi
-      url: "https://guacamole.dev-k8tre.org"
+      url: "https://guacamole.dev.umccr.org"
       config:
         protocol: rdp
         resolution: "1920x1080"

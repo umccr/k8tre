@@ -6,7 +6,7 @@ import urllib.parse
 
 
 KARECTL_ENV = os.environ.get("KARECTL_ENV", "stg")
-KARECTL_DOMAIN = os.environ.get("KARECTL_EXTERNAL_DOMAIN", "k8tre.org")
+KARECTL_DOMAIN = os.environ.get("KARECTL_EXTERNAL_DOMAIN", "umccr.org")
 BACKEND_URL = os.environ.get(
     "KARECTL_BACKEND_URL",
     f"https://portal.{KARECTL_ENV}.{KARECTL_DOMAIN}"
