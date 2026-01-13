@@ -18,7 +18,7 @@ spec:
       namespaces:
         from: All
   - name: https
-    hostname: "*.${ENVIRONMENT}.${DOMAIN}"
+    hostname: "*.k8tre.${ENVIRONMENT}.${DOMAIN}"
     port: 443
     protocol: HTTPS
     allowedRoutes:

@@ -6,11 +6,11 @@ import requests
 from kubespawner import KubeSpawner
 
 
-KARECTL_ENV = os.environ.get("KARECTL_ENV", "stg")
+KARECTL_ENV = os.environ.get("KARECTL_ENV", "dev")
 KARECTL_DOMAIN = os.environ.get("KARECTL_EXTERNAL_DOMAIN", "umccr.org")
 BACKEND_URL = os.environ.get(
     "KARECTL_BACKEND_URL",
-    f"https://portal.{KARECTL_ENV}.{KARECTL_DOMAIN}"
+    f"https://portal.k8tre.{KARECTL_ENV}.{KARECTL_DOMAIN}"
 )
 
 def get_available_projects():

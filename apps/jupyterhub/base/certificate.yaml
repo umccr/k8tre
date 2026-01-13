@@ -7,9 +7,9 @@ spec:
   secretName: xk8tre-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
-  commonName: jupyter.${ENVIRONMENT}.${DOMAIN}
+  commonName: jupyter.k8tre.${ENVIRONMENT}.${DOMAIN}
   dnsNames:
-    - jupyter.${ENVIRONMENT}.${DOMAIN}
+    - jupyter.k8tre.${ENVIRONMENT}.${DOMAIN}
   usages:
     - digital signature
     - key encipherment

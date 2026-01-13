@@ -58,6 +58,7 @@ spec:
 
     # Allow external access to domains
     - toFQDNs:
+      - matchPattern: "*.k8tre.${ENVIRONMENT}.${DOMAIN}"
       - matchPattern: "*.${ENVIRONMENT}.${DOMAIN}"
       - matchPattern: "*.${DOMAIN}"
       toPorts:

@@ -7,9 +7,9 @@ spec:
   secretName: gitea-tls # pragma: allowlist secret
   privateKey:
     rotationPolicy: Always
-  commonName: gitea.${ENVIRONMENT}.${DOMAIN}
+  commonName: gitea.k8tre.${ENVIRONMENT}.${DOMAIN}
   dnsNames:
-    - gitea.${ENVIRONMENT}.${DOMAIN}
+    - gitea.k8tre.${ENVIRONMENT}.${DOMAIN}
   usages: [ "digital signature", "key encipherment", "server auth" ]
   issuerRef:
     name: selfsigned
