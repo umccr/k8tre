@@ -18,7 +18,12 @@ spec:
               selector:
                 matchLabels:
                   environment: "{{index .path.segments 4}}"
-                  external-dns: "{{index .path.segments 2}}"
+                  vendor: "{{index .path.segments 2}}"
+                matchExpressions:
+                  - key: skip-external-dns
+                    operator: NotIn
+                    values: [ "true" ]
+
   template:
     metadata:
       name: "{{index .path.segments 1}}-{{.nameNormalized}}"
@@ -40,7 +45,7 @@ spec:
               value: "{{index .metadata.labels \"external-domain\"}}"
       destination:
         server: "{{.server}}"
-        namespace: "{{index .path.segments 1}}"
+        namespace: external-dns
       syncPolicy:
         automated:
           prune: true
