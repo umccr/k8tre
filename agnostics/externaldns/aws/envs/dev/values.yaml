@@ -1,0 +1,17 @@
+fullnameOverride: external-dns
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::843407916570:role/external-dns-20260114005431044300000001
+
+policy: sync
+txtOwnerId: externaldns
+
+domainFilters:
+  - dev.k8tre.org
+
+provider:
+  name: aws
+  env:
+    - name: AWS_DEFAULT_REGION
+      value: ap-southeast-2
