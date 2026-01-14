@@ -13,7 +13,7 @@ spec:
               repoURL: https://github.com/umccr/k8tre.git
               revision: main
               directories:
-                - path: agnostics/externaldns/*/envs/*
+                - path: agnostics/external-dns/*/envs/*
           - clusters:
               selector:
                 matchLabels:
@@ -22,14 +22,13 @@ spec:
                 matchExpressions:
                   - key: skip-external-dns
                     operator: NotIn
-                    values: [ "true" ]
-
+                    values: ["true"]
   template:
     metadata:
-      name: "{{index .path.segments 1}}-{{.nameNormalized}}"
+      name: "external-dns-{{.nameNormalized}}"
       annotations:
-        argocd.argoproj.io/instance: "{{index .path.segments 1}}-{{index .path.segments 4}}"
-        argocd.argoproj.io/sync-wave: "-9"
+        argocd.argoproj.io/instance: "external-dns-{{index .path.segments 4}}"
+        argocd.argoproj.io/sync-wave: "-7" # Install after kare-dns
     spec:
       project: default
       source:

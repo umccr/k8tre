@@ -2,11 +2,11 @@ fullnameOverride: external-dns
 
 serviceAccount:
   create: true
-  name: externaldns
+  name: external-dns
   labels:
     azure.workload.identity/use: "true"
   annotations:
-    azure.workload.identity/client-id: "b1b34079-15b8-4bbe-a09f-0fd7bb720fdc"
+    azure.workload.identity/client-id: "da830846-717d-4957-8315-e260999e743f"
 
 podLabels:
   azure.workload.identity/use: "true"
@@ -25,7 +25,7 @@ provider:
   name: azure-private-dns
 
 policy: sync
-txtOwnerId: externaldns
+txtOwnerId: external-dns
 
 domainFilters:
-  - k8tre.org
+  - dev.k8tre.org

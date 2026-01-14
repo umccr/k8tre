@@ -29,3 +29,4 @@ Each environment uses its own `values.yaml` file that configures:
 - Domain filters for the specific environment
 - Azure authentication via Workload Identity
 - Sync policies and ownership identifiers
+``

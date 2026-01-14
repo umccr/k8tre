@@ -2,7 +2,7 @@ fullnameOverride: external-dns
 
 serviceAccount:
   create: true
-  name: externaldns
+  name: external-dns
   labels:
     azure.workload.identity/use: "true"
   annotations:
@@ -25,7 +25,7 @@ provider:
   name: azure-private-dns
 
 policy: sync
-txtOwnerId: externaldns
+txtOwnerId: external-dns
 
 domainFilters:
   - stg.k8tre.org

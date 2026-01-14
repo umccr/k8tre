@@ -5,7 +5,7 @@ env:
 domainFilters:
   - k8tre.${ENVIRONMENT}.${DOMAIN}
 policy: sync
-txtOwnerId: externaldns
+txtOwnerId: external-dns
 sources:
   - service
   - gateway-httproute
@@ -13,7 +13,7 @@ sources:
 logLevel: info
 serviceAccount:
   create: true
-  name: externaldns
+  name: external-dns
 rbac:
   create: true
   additionalPermissions:

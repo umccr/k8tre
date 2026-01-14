@@ -10,4 +10,4 @@ helmCharts:
     version: 1.19.0
     valuesFile: values.yaml
     releaseName: external-dns
-    namespace: externaldns
+    namespace: external-dns
