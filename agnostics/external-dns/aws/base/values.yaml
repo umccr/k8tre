@@ -1,15 +1,8 @@
-fullnameOverride: external-dns
-
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::843407916570:role/external-dns-20260114005431044300000001
+    eks.amazonaws.com/role-arn: arn:aws:iam::843407916570:role/eksctl-k8tre-dev-addon-iamserviceaccount-exte-Role1-42XcRCaBgtPt
 
 policy: sync
-txtOwnerId: external-dns
-
-domainFilters:
-  - dev.k8tre.org
-
 provider:
   name: aws
   env:
