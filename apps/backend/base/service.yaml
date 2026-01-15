@@ -4,8 +4,10 @@ metadata:
   name: portal
   labels:
     app: backend
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: portal.k8tre.dev.umccr.org
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: backend
   ports:
