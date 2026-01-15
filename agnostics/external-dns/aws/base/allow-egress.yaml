@@ -10,3 +10,12 @@ spec:
   egress:
     - toCIDR:
         - "0.0.0.0/0"
+    # DNS to CoreDNS
+    - toEndpoints:
+        - matchLabels:
+            k8s-app: kube-dns
+            kubernetes.io/metadata.name: kube-system
+      toPorts:
+        - ports:
+            - { port: "53", protocol: UDP }
+            - { port: "53", protocol: TCP }
