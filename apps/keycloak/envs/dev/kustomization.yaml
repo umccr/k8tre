@@ -4,14 +4,14 @@ kind: Kustomization
 resources:
   - ../../base
 
-configMapGenerator:
-  - name: keycloak-config
-    literals:
-      - ENVIRONMENT=${ENVIRONMENT}
-      - DOMAIN=${DOMAIN}
-  - name: keycloak-realm-config
-    files:
-      - realm.json=keycloak-realm-config.json
-
-generatorOptions:
-  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: keycloak-config
+#    literals:
+#      - ENVIRONMENT=${ENVIRONMENT}
+#      - DOMAIN=${DOMAIN}
+#  - name: keycloak-realm-config
+#    files:
+#      - realm.json=keycloak-realm-config.json
+#
+#generatorOptions:
+#  disableNameSuffixHash: true
