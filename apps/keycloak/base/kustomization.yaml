@@ -12,8 +12,8 @@ resources:
   - gateway-route.yaml
   - postgres.yaml
 
-#patches:
-#  - path: projects-patch.yaml
+patches:
+  - path: projects-patch.yaml
 
 helmCharts:
   - name: keycloakx
