@@ -87,7 +87,7 @@ hub:
       c.Spawner.args = ['--ServerApp.allow_origin=*', '--ServerApp.allow_credentials=True']
 proxy:
   service:
-    type: ClusterIP
+    type: LoadBalancer
 singleuser:
   cloudMetadata:
     blockWithIptables: false
@@ -99,7 +99,7 @@ ingress:
     - jupyter.k8tre.${ENVIRONMENT}.${DOMAIN}
   ingressClassName: nginx
   annotations:
-    # external-dns.alpha.kubernetes.io/hostname: jupyter.k8tre.${ENVIRONMENT}.${DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: jupyter.k8tre.${ENVIRONMENT}.${DOMAIN}
     # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   tls:
     - hosts:

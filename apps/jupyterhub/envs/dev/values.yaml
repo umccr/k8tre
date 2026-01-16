@@ -98,7 +98,7 @@ hub:
 
 proxy:
   service:
-    type: ClusterIP
+    type: LoadBalancer
 
 singleuser:
   cloudMetadata:
