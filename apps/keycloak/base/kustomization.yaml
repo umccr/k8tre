@@ -4,16 +4,16 @@ kind: Kustomization
 namespace: keycloak
 
 # See https://www.keycloak.org/operator/installation#_installing_multiple_operators
-resources:
-  - certificate.yaml
-  - keycloak-db-external-secret.yaml
-  - keycloak-admin-external-secret.yaml
-  - keycloak-realm-config.yaml
-  - gateway-route.yaml
-  - postgres.yaml
-
-patches:
-  - path: projects-patch.yaml
+#resources:
+#  - certificate.yaml
+#  - keycloak-db-external-secret.yaml
+#  - keycloak-admin-external-secret.yaml
+#  - keycloak-realm-config.yaml
+#  - gateway-route.yaml
+#  - postgres.yaml
+##
+#patches:
+#  - path: projects-patch.yaml
 
 helmCharts:
   - name: keycloakx
