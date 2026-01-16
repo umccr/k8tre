@@ -12,6 +12,6 @@ configMapGenerator:
   - name: keycloak-realm-config
     files:
       - realm.json=keycloak-realm-config.json
-#
-#generatorOptions:
-#  disableNameSuffixHash: true
+
+generatorOptions:
+  disableNameSuffixHash: true
