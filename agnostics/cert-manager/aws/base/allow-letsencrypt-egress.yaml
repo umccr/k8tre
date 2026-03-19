@@ -1,0 +1,16 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-letsencrypt-egress
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: cert-manager
+  egress:
+    - toFQDNs:
+        - matchPattern: "*.letsencrypt.org"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
