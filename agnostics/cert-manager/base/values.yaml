@@ -7,8 +7,8 @@ config:
 podLabels:
   azure.workload.identity/use: "true"
 serviceAccount:
-  labels:
-    azure.workload.identity/use: "true"
+  create: true
+  name: cert-manager-sa
 extraArgs:
   - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
   - --dns01-recursive-nameservers-only

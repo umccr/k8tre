@@ -17,4 +17,4 @@ spec:
           auth:
             kubernetes:
               serviceAccountRef:
-                name: cert-manager
+                name: cert-manager-sa
