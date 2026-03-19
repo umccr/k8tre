@@ -57,7 +57,9 @@ spec:
   egress:
   - toEntities:
     - cluster
+    - host
   ingress:
   - fromEntities:
     - cluster
     - world
+    - host
