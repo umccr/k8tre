@@ -4,9 +4,9 @@
 
   Latest versions of Microk8s comes with Calico built-in and this conflicts with Cilium.
   Use k3s instead and the other instructions in this document should still be applicable.
-  ToDo: Create a new page for documenting k3s setup. 
+  ToDo: Create a new page for documenting k3s setup.
 
-This documentation guides you through creating a development environment using MicroK8s. 
+This documentation guides you through creating a development environment using MicroK8s.
 Alternative approaches include K3s, KinD, vCluster, and others.
 
 ## Overview
@@ -161,7 +161,7 @@ Edit each kubeconfig file to rename clusters and users:
 
 ```bash
 # Edit mgmt-kubeconfig.yaml to change:
-# - cluster name to "microk8s-mgmt" 
+# - cluster name to "microk8s-mgmt"
 # - user name to "admin-mgmt"
 
 # Edit dev-kubeconfig.yaml to change:

@@ -61,7 +61,7 @@ spec:
       labels:
         app: samba
     spec:
-      hostname: dc0      
+      hostname: dc0
       volumes:
         - name: samba-ad-data
           persistentVolumeClaim:
@@ -89,7 +89,7 @@ spec:
           command:
             - "/samba-init.sh"
       containers:
-        - name: samba          
+        - name: samba
           image: ghcr.io/manics/k8tre-samba-dc:main
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -126,7 +126,7 @@ spec:
             - { name: "rpc"        , containerPort: 135 , protocol: "TCP" }
             - { name: "smb"        , containerPort: 445 , protocol: "TCP" }
             - { name: "kpasswd"    , containerPort: 464 , protocol: "TCP" }
-            - { name: "ldap"       , containerPort: 389 , protocol: "TCP" }    
+            - { name: "ldap"       , containerPort: 389 , protocol: "TCP" }
             - { name: "ldaps"      , containerPort: 636 , protocol: "TCP" }
             - { name: "ldap-gc"    , containerPort: 3268, protocol: "TCP" }
             - { name: "ldaps-gc"   , containerPort: 3269, protocol: "TCP" }
@@ -148,7 +148,7 @@ spec:
     - { name: "rpc"        , port: 135 , targetPort: 135 , protocol: "TCP" }
     - { name: "smb"        , port: 445 , targetPort: 445 , protocol: "TCP" }
     - { name: "kpasswd"    , port: 464 , targetPort: 464 , protocol: "TCP" }
-    - { name: "ldap"       , port: 389 , targetPort: 389 , protocol: "TCP" }    
+    - { name: "ldap"       , port: 389 , targetPort: 389 , protocol: "TCP" }
     - { name: "ldaps"      , port: 636 , targetPort: 636 , protocol: "TCP" }
     - { name: "ldap-gc"    , port: 3268, targetPort: 3268, protocol: "TCP" }
     - { name: "ldaps-gc"   , port: 3269, targetPort: 3269, protocol: "TCP" }

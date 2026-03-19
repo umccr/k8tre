@@ -37,4 +37,3 @@ Documentation is divided into the following sections:
 - [**K8TRE Specification**](spec/README.md)
 - [**K8TRE Reference Implementation**](implementation/architecture.md)
 - [**K8TRE Development**](development/introduction.md)
-

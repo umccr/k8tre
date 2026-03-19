@@ -49,7 +49,7 @@ data:
         errors
         forward in-addr.arpa. ${SAMBA_IP}:53
         forward ad.${DOMAIN}. ${SAMBA_IP}:53
-        forward ad. ${SAMBA_IP}:53                
+        forward ad. ${SAMBA_IP}:53
         forward . ${CURRENT_IP}:53
     }
     in-addr.arpa:53 {

@@ -37,4 +37,3 @@ patches:
           - jsonPointers:
               - /spec/syncPolicy
               - /spec/source/targetRevision
-              

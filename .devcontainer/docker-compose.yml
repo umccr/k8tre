@@ -7,8 +7,8 @@ services:
     container_name: k8tre-devcontainer
     volumes:
       - ..:/workspace:cached
-      - k8s-config:/kubeconfig:cached 
-    command: /bin/sh -c "while sleep 1000; do :; done"  
+      - k8s-config:/kubeconfig:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
 
     user: vscode
     links:
@@ -34,14 +34,14 @@ services:
     volumes:
     - k3s-server:/var/lib/rancher/k3s
     # This is just so that we get the kubeconfig file out
-    - k8s-config:/output 
+    - k8s-config:/output
     expose:
       - 6443 # Kubernetes API Server
       - 80 # Ingress controller port 80 - not used at the moment
       - 443 # Ingress controller port 443 - not used at the moment
       - 8080 # ArgoCD UI
       - 8443 # ArgoCD API
-    
+
     ports:
     - 6443:6443  # Kubernetes API Server
     # - 80:80      # Ingress controller port 80

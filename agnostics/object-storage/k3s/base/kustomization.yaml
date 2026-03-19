@@ -18,5 +18,3 @@ labels:
   - pairs:
       app.kubernetes.io/part-of: tre-infrastructure
       app.kubernetes.io/managed-by: argocd
-
-

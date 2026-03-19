@@ -12,13 +12,13 @@ We welcome contributions from the community! Here's how you can help:
 
 If you find a bug or have a suggestion for improving the project:
 
-1. Check if the issue already exists in our [issue tracker](https://github.com/k8tre/k8tre/issues)
+1. Check if the issue already exists in our [issue tracker](https://github.com/umccr/k8tre/issues)
 2. If not, create a new issue with a descriptive title and detailed description
 3. Include steps to reproduce, expected behavior, and actual behavior
 
 ### Contributing Code
 
-Please refer to our [CONTRIBUTING.md](https://github.com/k8tre/k8tre/blob/main/CONTRIBUTING.md) file in the repository root for detailed instructions on:
+Please refer to our [CONTRIBUTING.md](https://github.com/umccr/k8tre/blob/main/CONTRIBUTING.md) file in the repository root for detailed instructions on:
 
 - Setting up your development environment
 - Code style guidelines

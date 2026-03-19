@@ -1,4 +1,4 @@
-name: Test K8TRE Deployment to K3S 
+name: Test K8TRE Deployment to K3S
 on:
   pull_request:
     branches:

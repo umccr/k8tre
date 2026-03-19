@@ -18,7 +18,7 @@ To use the DevContainer, you'll need:
 
 1. Clone the K8TRE repository:
    ```bash
-   git clone https://github.com/k8tre/k8tre.git
+   git clone https://github.com/umccr/k8tre.git
    cd k8tre
    ```
 

@@ -28,4 +28,3 @@ ingress:
     - hosts:
         - guacamole.dev.k8tre.internal
       secretName: guacamole-k8tre-tls
-

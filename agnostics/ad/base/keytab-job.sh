@@ -84,7 +84,7 @@ function gen_user_keytab() {
         echo "wkt /keytab"
     ) | ktutil
 
-    current_kvno=$(ldbsearch $LDB_OPTS "samAccountName=$username" msDS-KeyVersionNumber | grep ^msDS-KeyVersionNumber | awk '{ print $2 }')    
+    current_kvno=$(ldbsearch $LDB_OPTS "samAccountName=$username" msDS-KeyVersionNumber | grep ^msDS-KeyVersionNumber | awk '{ print $2 }')
     kubectl -n "project-$project" create configmap "$username.keytab" --from-file /keytab --from-literal "kvno=$current_kvno" -o yaml --dry-run=client | kubectl apply -f -
 
     rm /keytab

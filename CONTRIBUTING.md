@@ -2,7 +2,7 @@
 
 **AI Generated placeholder text - Not sanity checked!**
 
-Thank you for your interest in contributing to K8TRE! 
+Thank you for your interest in contributing to K8TRE!
 This document provides guidelines and instructions for contributing to this project.
 
 Please get involved in discussions at https://github.com/orgs/k8tre/discussions.

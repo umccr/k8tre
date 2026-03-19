@@ -5,7 +5,7 @@ autoDiscovery:
   # https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler/9.51.0/#templating-the-autodiscovery-clustername
   clusterName: k8tre-dev
 
-awsRegion: eu-west-2
+awsRegion: ap-southeast-2
 
 rbac:
   serviceAccount:

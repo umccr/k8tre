@@ -37,7 +37,7 @@ EOF
 
 if ! kubectl get namespace argocd &>/dev/null; then
   print_message "Installing ArgoCD..."
-  
+
   # Install ArgoCD
   # Create namespace
   kubectl create namespace argocd
@@ -48,8 +48,8 @@ if ! kubectl get namespace argocd &>/dev/null; then
   # Wait for ArgoCD to become ready
   print_message "Waiting for ArgoCD to start..."
   kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
-  
-  
+
+
 else
   print_message "ArgoCD is already installed"
 fi

@@ -1,6 +1,6 @@
 # GitOps using ArgoCD
 
-K8TRE reference implementation uses [ArgoCD](https://argoproj.github.io/cd/) to deploy and manage applications.  
+K8TRE reference implementation uses [ArgoCD](https://argoproj.github.io/cd/) to deploy and manage applications.
 Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
 The reference implementation uses the ArgoCD [_App of Apps_](https://argo-cd.readthedocs.io/en/latest/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) pattern and recommends the use of a separate management cluster for ArgoCD and development, staging and production clusters for applications.
@@ -33,15 +33,15 @@ graph LR
 ```
 
 !!! tip "Single cluster setup"
-    For local testing and development purposes, it is possible to deploy all the applications for any particular environment into the same cluster that ArgoCD is deployed to. 
-    This is described in the [development documentation](../development/k3s-dev.md). 
+    For local testing and development purposes, it is possible to deploy all the applications for any particular environment into the same cluster that ArgoCD is deployed to.
+    This is described in the [development documentation](../development/k3s-dev.md).
     This is not recommended for production deployments.
 
 ## Directory Structure
 
-All application manifests for the core components of the reference implementation are stored in the [K8TRE Github repository](https://github.com/k8tre/k8tre).
+All application manifests for the core components of the reference implementation are stored in the [K8TRE Github repository](https://github.com/umccr/k8tre).
 
-The directory structure of the core repository is described below. 
+The directory structure of the core repository is described below.
 _Information has been truncated to represent the common patterns._
 
 ```
@@ -81,16 +81,16 @@ _Information has been truncated to represent the common patterns._
 │   ├── identity
 │   └── workspaces
 ├── ci                   # Scripts for CI and bootstrapping
-├── docs                 
+├── docs
 ```
 
 ## Multi-cluster deployment with Appsets
 
-K8TRE implementation follows a multi-cluster deployment pattern and supports development, staging and production clusters out-of-the-box. 
+K8TRE implementation follows a multi-cluster deployment pattern and supports development, staging and production clusters out-of-the-box.
 However, K8TRE deployments can choose to deploy only the manifests in one (or more) of the target clusters.
 
 K8TRE uses the ArgoCD [ApplicationSet controller](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/) to manage the deployment of all applications.
-The applicationset manifests can be found in the [`appsets/`](https://github.com/k8tre/k8tre/tree/main/appsets) directory.
+The applicationset manifests can be found in the [`appsets/`](https://github.com/umccr/k8tre/tree/main/appsets) directory.
 
 Most appsets in K8TRE use the [matrix generator](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Matrix/) combining [git](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git/#git-generator-directories) and [cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Cluster/) generators.
 
@@ -124,14 +124,14 @@ In the example above, ArgoCD uses the value of the cluster label `environment` a
 
 ### Vendor-specific applications
 
-Other appsets use this `environment` label in combination with other labels to target specific applications to the correct clusters. 
+Other appsets use this `environment` label in combination with other labels to target specific applications to the correct clusters.
 
 For instance, the `vendor` label can be one of _azure_, _aws (not implemented yet)_ or _k3s_.
 
 ### Skipping applications
 
 Some clusters may not want to have certain applications deployed to them.
-For instance, _metallb_ must not be deployed to AKS. 
+For instance, _metallb_ must not be deployed to AKS.
 This can be achieved by setting the `skip-metallb` label to `true` on the cluster and using the following in the cluster generator section of the applicationset manifest.
 
 ```yaml
@@ -155,7 +155,7 @@ This can be achieved by setting the `skip-metallb` label to `true` on the cluste
 
 ## Sync Waves and App Dependencies
 
-Often certain applications need to be deployed first before other applications can be deployed. 
-For instance, the agnostics application plane must be deployed before the apps. 
+Often certain applications need to be deployed first before other applications can be deployed.
+For instance, the agnostics application plane must be deployed before the apps.
 
-K8TRE uses [ArgoCD sync waves](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/) to achieve this. 
+K8TRE uses [ArgoCD sync waves](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/) to achieve this.

@@ -35,8 +35,8 @@ k8tre/
 │   ├── app1/
 │   │   ├── base/                    # Shared base configuration
 │   │   │   ├── kustomization.yaml
-│   │   │   ├── postgres.yaml  
-│   │   │   ├── 
+│   │   │   ├── postgres.yaml
+│   │   │   ├──
 │   │   └── envs/                   # Environment overlays
 │   │       ├── dev/
 │   │       │   ├── kustomization.yaml
@@ -130,7 +130,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/k8tre/k8tre.git
+    repoURL: https://github.com/umccr/k8tre.git
     targetRevision: main  # ApplicationSets stay on main
     path: appsets
     kustomize:
@@ -144,10 +144,10 @@ spec:
           patch: |-
             - op: replace
               path: /spec/generators/0/matrix/generators/0/git/repoURL
-              value: https://github.com/k8tre/k8tre.git
+              value: https://github.com/umccr/k8tre.git
             - op: replace
               path: /spec/template/spec/source/repoURL
-              value: https://github.com/k8tre/k8tre.git
+              value: https://github.com/umccr/k8tre.git
             - op: replace
               path: /spec/generators/0/matrix/generators/0/git/revision
               value: main  # Keep on main
@@ -165,7 +165,7 @@ spec:
       selfHeal: true
   info:
     - name: K8TRE App of Apps
-      value: "https://github.com/k8tre/k8tre"
+      value: "https://github.com/umccr/k8tre"
     - name: K8TRE Documentation
       value: "https://k8tre.github.io/k8tre/"
 ```
@@ -247,7 +247,7 @@ kubectl get secrets -n secret-store | grep <app>
 ```
 **How External Secrets Work:**
 
-1.  **Secret Storage**: Secrets are created in the `secret-store` namespace 
+1.  **Secret Storage**: Secrets are created in the `secret-store` namespace
 2.  **ExternalSecret Resources**: Define which secrets to sync and where to sync them
 3.  **Target Secrets**: ESO automatically creates and maintains secrets in application namespaces
 4.  **Application Usage**: Applications reference the target secrets via standard Kubernetes mechanisms
@@ -358,7 +358,7 @@ spec:
         generators:
           # Discovers environment directories (dev, stg, prd)
           - git:
-              repoURL: https://github.com/k8tre/k8tre.git
+              repoURL: https://github.com/umccr/k8tre.git
               revision: main
               directories:
                 - path: apps/<app>/envs/*
@@ -375,7 +375,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/k8tre/k8tre.git
+        repoURL: https://github.com/umccr/k8tre.git
         targetRevision: main
         path: "{{.path.path}}"
         plugin:
@@ -446,7 +446,7 @@ kubectl apply --dry-run=client -k apps/<app-name>/envs/dev
 ```
 
 ### 3. Commit and Push
-Push to the feature development branch to test via ArgoCD 
+Push to the feature development branch to test via ArgoCD
 
 ```shell
 git add .
@@ -526,7 +526,7 @@ Once your feature is complete and tested:
 
 ### 2. Review Process
 
-- Code review 
+- Code review
 - Automated tests (if configured)
 - Manual testing in development environment
 

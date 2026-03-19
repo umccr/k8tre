@@ -2,7 +2,7 @@
 
 This documentation guides you through creating an all-in-one development environment using a single K3s cluster (ArgoCD is deployment in the same cluster as a K8TRE dev deployment).
 
-These instructions are also used for automatically testing K8TRE in [GitHub actions](https://github.com/k8tre/k8tre/actions/workflows/test.yaml).
+These instructions are also used for automatically testing K8TRE in [GitHub actions](https://github.com/umccr/k8tre/actions/workflows/test.yaml).
 For more hands-on instructions with explanations see [k3s.md](k3s.md).
 
 ## Prerequisites
@@ -84,7 +84,7 @@ argocd cluster set in-cluster \
   --label environment=dev \
   --label secret-store=kubernetes \
   --label vendor=k3s \
-  
+
 argocd cluster get in-cluster
 ```
 
@@ -129,7 +129,7 @@ uv run ci/create-ci-secrets.py --context $(kubectl config current-context)
 Edit the app-of-apps to point to you GitHub fork `$GITHUB_REPOSITORY` and branch/commit `$GITHUB_SHA`
 
 ```bash
-sed -i -e "s%/k8tre/k8tre%/${GITHUB_REPOSITORY}%" -e "s%main%${GITHUB_SHA}%" app_of_apps/root-app-of-apps.yaml
+sed -i -e "s%/umccr/k8tre%/${GITHUB_REPOSITORY}%" -e "s%main%${GITHUB_SHA}%" app_of_apps/root-app-of-apps.yaml
 git diff
 ```
 
@@ -162,7 +162,7 @@ kubectl get crd
 ```
 
 TODO:
-- Check all references to `k8tre/k8tre` and `main` are changed in all applications
+- Check all references to `umccr/k8tre` and `main` are changed in all applications
 - Check number of applications is as expected
 - Check all applications are synchronised
 - Check deployments/daemonsets etc are healthy and ready

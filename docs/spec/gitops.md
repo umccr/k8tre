@@ -8,13 +8,13 @@ k8tre_statements:
     - ref: 1.2.2
       rationale: SATRE requires the use of versioning and a codified change procedure for all policies and standard operating procedures. By using GitOps practices to provision and manage K8TRE resources and infrastructure-level resources, K8TRE developers are able to assist TRE operators in meeting this SATRE requirement for the policies and standard operating procedures that govern the TRE's infrastructure and configuration.
     - ref: 2.2.1
-      rationale: SATRE requires TRE operators to have a documented procedure for deploying infrastructure. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled. 
+      rationale: SATRE requires TRE operators to have a documented procedure for deploying infrastructure. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled.
     - ref: 2.2.3
-      rationale: SATRE requires TRE operators to have a documented procedure for making changes to deployed infrastructure. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled. 
+      rationale: SATRE requires TRE operators to have a documented procedure for making changes to deployed infrastructure. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled.
     - ref: 2.2.4
       rationale: SATRE requires TRE operators to test changes before they are used in production. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled.
     - ref: 2.2.6
-      rationale: SATRE requires TRE operators to have a documented procedure for removing infrastructure when it is no longer needed. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled. 
+      rationale: SATRE requires TRE operators to have a documented procedure for removing infrastructure when it is no longer needed. Designing TREs or TRE components with GitOps practices in mind will ensure this component is fulfilled.
 ---
 
 {{ spec_content(page.meta) }}

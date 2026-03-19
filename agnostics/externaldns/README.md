@@ -8,7 +8,7 @@ This directory contains the Kubernetes manifests for deploying External DNS with
   - `base/` - Contains the base configuration files
   - `envs/` - Environment-specific configurations
     - `dev/` - Development environment configuration
-    - `prd/` - Production environment configuration  
+    - `prd/` - Production environment configuration
     - `stg/` - Staging environment configuration
 
 ## Features

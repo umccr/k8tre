@@ -7,7 +7,7 @@ RUN mkdir -p /etc/guacamole/extensions && \
     cp /opt/guacamole/extensions/guacamole-auth-json/guacamole-auth-json.jar /etc/guacamole/extensions/ && \
     chown -R guacamole:guacamole /etc/guacamole
 
-# Remove unwanted environment directories to disable other extensions  
+# Remove unwanted environment directories to disable other extensions
 RUN rm -rf /opt/guacamole/environment/BAN_* \
         /opt/guacamole/environment/HEADER_* \
         /opt/guacamole/environment/LDAP_* \

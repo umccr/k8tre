@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
   - ../../base
-
-# TODO: enable ACME Lets Encrypt certificates, or use ACM on the load balancer
-# https://cert-manager.io/docs/configuration/acme/dns01/route53/
+  - letsencrypt-clusterissuer.yaml
+  - rbac.yaml

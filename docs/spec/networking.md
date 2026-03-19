@@ -18,7 +18,7 @@ k8tre_statements:
 ## Motivation
 
 Robust network policy enforcement is required to isolate traffic, especially of sensitive data, but also of orchestration requests/responses that could be an attack vector - e.g. in runtime modification of access control lists.
-    
+
 ## Implementation Compliance
 
 ### K8TRE Reference Implementation
