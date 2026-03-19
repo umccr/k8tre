@@ -1,8 +1,8 @@
-apiVersion: "cilium.io/v2"
+apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: allow-letsencrypt-egress
-  namespace: kube-system
+  namespace: cert-manager
 spec:
   endpointSelector:
     matchLabels:
