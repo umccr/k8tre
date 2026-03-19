@@ -24,16 +24,20 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: k8tre-default-network-policy
 spec:
-  # Every pod except those in kube-system
+  # Every pod except those in kube-system and project-namespaces
+  # This is in addition to CiliumClusterwideNetworkPolicy/allow-pod-to-pod-via-gateway
   endpointSelector:
     matchExpressions:
       - key: "k8s:io.kubernetes.pod.namespace"
         operator: NotIn
         values:
           - kube-system
+      - key: io.cilium.k8s.namespace.labels.k8tre.io/resource-type
+        operator: NotIn
+        values:
+          - project-namespace
+
   egress:
-    - toEntities:
-        - cluster
     - toCIDR:
         # TODO: For now allow all traffic to VPC
         - 10.0.0.0/16
@@ -55,7 +59,12 @@ spec:
             dns:
               # TODO: narrow this down
               - matchPattern: "*"
-  # ingress:
-  #   - fromEntities:
-  #       - cluster
-  #       - world
+    - toEntities:
+        - cluster
+        - host
+        - remote-node
+  ingress:
+    - fromEntities:
+        - cluster
+        - host
+        - remote-node
