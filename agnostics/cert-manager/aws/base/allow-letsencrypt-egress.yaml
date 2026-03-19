@@ -7,7 +7,7 @@ spec:
   endpointSelector: {}
   egress:
     - toFQDNs:
-        - matchPattern: "*.letsencrypt.org"
+        - matchPattern: "**.letsencrypt.org"
       toPorts:
         - ports:
             - port: "443"
