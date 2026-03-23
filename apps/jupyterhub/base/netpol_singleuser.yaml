@@ -88,10 +88,11 @@ spec:
         - matchLabels:
             app: samba
       toPorts:
-        - port: "88"
-          protocol: "TCP"
-        - port: "88"
-          protocol: "UDP"
+        - ports:
+            - port: "88"
+              protocol: "TCP"
+            - port: "88"
+              protocol: "UDP"
   ingress:
     - fromEndpoints:
         - matchLabels:
