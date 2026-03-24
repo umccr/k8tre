@@ -2,6 +2,9 @@ prePuller:
   hook:
     enabled: false
 hub:
+  db:
+    pvc:
+      storageClassName: rwo-default
   networkPolicy:
     enabled: true
     egressAllowRules:
