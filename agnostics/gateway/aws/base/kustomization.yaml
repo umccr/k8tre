@@ -3,12 +3,9 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - gateway-service-patch.yaml
 
 patches:
-  - path: gateway-infrastructure-patch.yaml
-    target:
-      kind: Gateway
-      name: internal-gateway
   - path: gateway-cert-issuer-patch.yaml
     target:
       kind: Gateway
