@@ -43,8 +43,6 @@ spec:
               value: "{{index .path.segments 4}}"
             - name: DOMAIN
               value: "{{index .metadata.labels \"external-domain\"}}"
-            - name: INBOUND_CIDRS
-              value: "{{index .metadata.labels \"inbound-ip\"}}/32"
       destination:
         server: "{{.server}}"
         namespace: "{{index .path.segments 1}}"

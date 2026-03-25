@@ -17,8 +17,6 @@ spec:
         env:
         - name: EXTERNAL_DOMAIN
           value: ${DOMAIN}
-        - name: SOURCE_RANGES
-          value: ${INBOUND_CIDRS}
         command:
           - /bin/sh
           - -c
@@ -37,7 +35,6 @@ spec:
                   \"service.beta.kubernetes.io/aws-load-balancer-nlb-target-type\": \"instance\",
                   \"service.beta.kubernetes.io/aws-load-balancer-scheme\": \"internet-facing\",
                   \"service.beta.kubernetes.io/aws-load-balancer-attributes\": \"load_balancing.cross_zone.enabled=true\",
-                  \"service.beta.kubernetes.io/load-balancer-source-ranges\": \"${SOURCE_RANGES}\",
                   \"external-dns.alpha.kubernetes.io/hostname\": \"*.${EXTERNAL_DOMAIN}\",
                   \"external-dns.alpha.kubernetes.io/internal-hostname\": \"*.internal-test.${EXTERNAL_DOMAIN}\"
                 }
