@@ -110,6 +110,7 @@ class SecretsBackend(abc.ABC):
 
 class KubernetesBackend(SecretsBackend):
     def __init__(self, context: str, namespace: str):
+        self.context = context
         self.namespace = namespace
         try:
             config.load_kube_config(context=context)
@@ -491,7 +492,7 @@ class CISecretsManager:
             if isinstance(self.backend, KubernetesBackend):
                  console.print("\nTo verify the secrets, run:")
                  console.print(
-                    f"[cyan]kubectl get secrets -n {self.backend.namespace} --context={self.backend.v1.api_client.configuration.host if hasattr(self.backend, 'v1') else 'context'}[/cyan]"
+                    f"[cyan]kubectl get secrets -n {self.backend.namespace} --context={self.backend.context}[/cyan]"
                  )
 
             if self.generated_values:
