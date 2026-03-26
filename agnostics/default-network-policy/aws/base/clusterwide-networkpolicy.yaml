@@ -26,7 +26,7 @@ spec:
             dns:
               - matchPattern: "*"
   endpointSelector: {}
-  # ingress:
-  #   - fromEntities:
-  #       - cluster
-  #       - world
+  ingress:
+    - fromEntities:
+        - cluster
+        - world
