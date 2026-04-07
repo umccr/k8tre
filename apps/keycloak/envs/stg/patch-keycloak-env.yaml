@@ -2,4 +2,5 @@
   path: /spec/template/spec/containers/0/env/-
   value:
     name: KC_LOG_LEVEL
-    value: DEBUG
+    value: INFO
+    # value: DEBUG
