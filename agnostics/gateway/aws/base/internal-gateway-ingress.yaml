@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    # No need to specifiy certificate, ALB automatically looks up the available
+    # No need to specify certificate, ALB automatically looks up the available
     # ACM certificates to find one that matches the ingress host
     # alb.ingress.kubernetes.io/certificate-arn:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'

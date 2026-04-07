@@ -39,7 +39,7 @@ import string
 import sys
 from enum import Enum
 from pathlib import Path
-from typing import Annotated, Any, Dict, List, Optional
+from typing import Annotated, Any, Dict, Optional
 
 import typer
 import yaml
@@ -187,7 +187,6 @@ class AWSParameterStoreBackend(SecretsBackend):
             self.prefix += "/"
 
         self.tags = [
-            {"Key": "Environment", "Value": "dev"},
             {"Key": "ManagedBy", "Value": "k8tre/create-ci-secrets"},
         ]
 
@@ -197,8 +196,8 @@ class AWSParameterStoreBackend(SecretsBackend):
                 kwargs["region_name"] = region
             self.ssm = boto3.client("ssm", **kwargs)
         except Exception as e:
-             console.print(f"[red]Error: Failed to initialize AWS SSM client: {e}[/red]")
-             sys.exit(1)
+            console.print(f"[red]Error: Failed to initialize AWS SSM client: {e}[/red]")
+            sys.exit(1)
 
     def _get_name(self, secret_name: str) -> str:
         return f"{self.prefix}{secret_name}"
@@ -367,9 +366,9 @@ class CISecretsManager:
                 self.backend.delete_secret(secret_name, self.dry_run)
                 console.print(f"[yellow]Overwriting existing secret: {secret_name}[/yellow]")
             elif secret_exists and self.merge_keys:
-                 # Delete to recreate fresh with merged data (for immutable backend patterns or simplicity)
-                 self.backend.delete_secret(secret_name, self.dry_run)
-                 console.print(f"[cyan]Merging keys into existing secret: {secret_name}[/cyan]")
+                # Delete to recreate fresh with merged data (for immutable backend patterns or simplicity)
+                self.backend.delete_secret(secret_name, self.dry_run)
+                console.print(f"[cyan]Merging keys into existing secret: {secret_name}[/cyan]")
 
             # Create generic secret with final data
             self.backend.create_secret(secret_name, final_data, self.dry_run)
@@ -490,10 +489,10 @@ class CISecretsManager:
             )
 
             if isinstance(self.backend, KubernetesBackend):
-                 console.print("\nTo verify the secrets, run:")
-                 console.print(
+                console.print("\nTo verify the secrets, run:")
+                console.print(
                     f"[cyan]kubectl get secrets -n {self.backend.namespace} --context={self.backend.context}[/cyan]"
-                 )
+                )
 
             if self.generated_values:
                 console.print(
