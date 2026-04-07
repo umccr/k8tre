@@ -10,4 +10,4 @@ helmCharts:
     valuesInline:
       serviceAccount:
         # Must match any external identity associations
-        name: external-secrets-sa
+        name: external-secrets
