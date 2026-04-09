@@ -1,0 +1,13 @@
+# https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler/9.51.0/
+
+autoDiscovery:
+  # TODO: it should be possible to template this in ArgoCD instead of hard-coding it
+  # https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler/9.51.0/#templating-the-autodiscovery-clustername
+  clusterName: ${CLUSTER_NAME}
+
+awsRegion: ${REGION}
+
+rbac:
+  serviceAccount:
+    # Must match aws_eks_pod_identity_association.cluster-autoscaler
+    name: cluster-autoscaler-sa

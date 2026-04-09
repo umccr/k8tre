@@ -1,0 +1,24 @@
+provider:
+  name: aws
+
+aws:
+  # Only modify private Route53 zone
+  # This means we can have split DNS (public and private zones) without needing to pass
+  # the Zone ID to the operator, just the domain is enough
+  zoneType: private
+
+env:
+  - name: AWS_DEFAULT_REGION
+    value: ${REGION}
+
+serviceAccount:
+  create: true
+  name: externaldns-sa
+
+sources:
+  - gateway-httproute
+  - ingress
+  # - gateway-tlsroute
+
+policy: sync
+txtOwnerId: externaldns
