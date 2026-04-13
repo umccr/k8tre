@@ -32,8 +32,8 @@ data:
         error_page 403 = @error403;
 
         # health for probes (NO AUTH)
-        location = /health {
-          return 200;
+        location = /health { 
+          return 200; 
         }
 
         # subrequest to backend validate
@@ -64,17 +64,17 @@ data:
         }
 
         # Skip auth for static files and hub health
-        location ^~ /hub/static/ {
+        location ^~ /hub/static/ { 
           proxy_pass http://jhub_upstream;
           add_header 'Access-Control-Allow-Origin' $cors_origin always;
           add_header 'Access-Control-Allow-Credentials' 'true' always;
         }
-        location ^~ /static/ {
+        location ^~ /static/ { 
           proxy_pass http://jhub_upstream;
           add_header 'Access-Control-Allow-Origin' $cors_origin always;
           add_header 'Access-Control-Allow-Credentials' 'true' always;
         }
-        location = /hub/health {
+        location = /hub/health { 
           proxy_pass http://jhub_upstream;
           add_header 'Access-Control-Allow-Origin' $cors_origin always;
           add_header 'Access-Control-Allow-Credentials' 'true' always;
@@ -155,7 +155,7 @@ data:
 
           return 302 https://portal.${DOMAIN}/login?redirect=$scheme://$host$request_uri;
         }
-
+        
         location @error403 {
           add_header 'Access-Control-Allow-Origin' $cors_origin always;
           add_header 'Access-Control-Allow-Credentials' 'true' always;

@@ -7,3 +7,4 @@ This directory contains ArgoCD ApplicationSets for user-facing workspace applica
 - `jupyterhub.yaml` - ApplicationSet for deploying JupyterHub across environments
 
 These ApplicationSets deploy the user-facing workspace applications from the `/apps` directory across development, staging, and production environments.
+

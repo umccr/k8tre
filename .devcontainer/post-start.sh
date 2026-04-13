@@ -23,3 +23,4 @@ fi
 
 print_message "To port-forward the ArgoCD UI, run the following command:"
 echo "kubectl port-forward svc/argocd-server -n argocd 8080:443"
+

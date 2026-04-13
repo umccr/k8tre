@@ -29,7 +29,7 @@ gitea:
 
   config:
     queue:
-      TYPE: level    # use local disk-backed queue (default is redis)
+      TYPE: level    # use local disk-backed queue (default is redis) 
       CONN_STR: /data/queues/level
     server:
       DOMAIN: gitea.${DOMAIN}
@@ -50,7 +50,7 @@ gitea:
     # --- Disable Redis; use in-memory cache & file sessions ---
     cache:
       ADAPTER: memory
-      ENABLED: true
+      ENABLED: true   
     session:
       PROVIDER: file
     redis:
@@ -69,7 +69,7 @@ gitea:
       value: memory
     - name: GITEA__SESSION__PROVIDER
       value: file
-    - name: GITEA__QUEUE__TYPE
+    - name: GITEA__QUEUE__TYPE        
       value: level
     - name: GITEA__QUEUE__CONN_STR
       value: /data/queues/level

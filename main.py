@@ -14,11 +14,11 @@ def define_env(env):
 !!! abstract "Specification"
     {statement}
 
-Last updated: {updated}
+Last updated: {updated}  
 Source: {source}
 """
-
-
+    
+    
     @env.macro
     def satre_link(meta):
         satre_items = meta.get("k8tre_statements", {}).get("satre", [])
@@ -31,7 +31,7 @@ Source: {source}
                 ref = item.get("ref", "No ref")
                 rationale = item.get("rationale", "No rationale provided.")
                 satre_md += f"""
-**Component {ref}**
+**Component {ref}**  
 {rationale}
 """
                 return satre_md

@@ -7,7 +7,7 @@ import urllib.parse
 
 
 K8TRE_ENV = os.environ.get("K8TRE_ENV", "stg")
-K8TRE_DOMAIN = os.environ.get("K8TRE_EXTERNAL_DOMAIN", "k8tre.org")
+K8TRE_DOMAIN = os.environ.get("K8TRE_EXTERNAL_DOMAIN", "guardians.umccr.org")
 BACKEND_URL = os.environ.get(
     "K8TRE_BACKEND_URL",
     f"https://portal.{K8TRE_ENV}.{K8TRE_DOMAIN}"

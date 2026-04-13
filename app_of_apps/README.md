@@ -5,3 +5,6 @@ This directory contains the root ArgoCD Application that bootstraps the entire K
 The root-app-of-apps.yaml file defines the main ArgoCD Application which then deploys the ApplicationSets in the appsets directory, managing the entire K8TRE implementation in a GitOps fashion.
 
 This approach allows for declarative, version-controlled deployment of the entire K8TRE platform across multiple environments.
+
+
+

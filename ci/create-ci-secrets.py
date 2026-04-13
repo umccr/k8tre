@@ -27,7 +27,7 @@ Backends:
 
 Usage:
     uv run create-ci-secrets.py --context k3d-dev [--dry-run] [--namespace secret-store]
-    uv run create-ci-secrets.py --backend aws-ssm --region ap-southeast-2 [--dry-run]
+    uv run create-ci-secrets.py --backend aws-ssm --region eu-west-2 [--dry-run]
     uv run create-ci-secrets.py --context k3d-dev --merge-keys [--dry-run]
 """
 
@@ -544,7 +544,7 @@ def main(
 
     Examples:
       uv run create-ci-secrets.py --context k3d-dev
-      uv run create-ci-secrets.py --backend aws-ssm --region ap-southeast-2
+      uv run create-ci-secrets.py --backend aws-ssm --region eu-west-2
       uv run create-ci-secrets.py --context k3d-dev --dry-run
       uv run create-ci-secrets.py --context k3d-dev --overwrite
       uv run create-ci-secrets.py --context k3d-dev --merge-keys

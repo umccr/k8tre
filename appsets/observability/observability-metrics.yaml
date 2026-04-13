@@ -4,7 +4,7 @@ metadata:
   name: observability-metrics
   namespace: argocd
   labels:
-    k8tre.io/appset: observability-metrics
+    k8tre.io/appset: observability-metrics          
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]

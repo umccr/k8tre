@@ -47,7 +47,7 @@ ingress:
   # Using HTTPRoute/cr8tor-approval-route
   enabled: false
 
-storage:
+storage: 
   k8tre:
     env: TARGET_STORAGE_ACCOUNT_K8TRE_SDE_MNT_PATH
     mountPath: /home/appuser/outputs/k8tre
@@ -99,3 +99,5 @@ storage:
         storageClassName: rwx-default
         accessModes:
         - ReadWriteMany
+
+    
