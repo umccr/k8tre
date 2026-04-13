@@ -6,8 +6,8 @@ import requests
 import urllib.parse
 
 
-K8TRE_ENV = os.environ.get("K8TRE_ENV", "dev")
-K8TRE_DOMAIN = os.environ.get("K8TRE_EXTERNAL_DOMAIN", "guardians.umccr.org")
+K8TRE_ENV = os.environ.get("K8TRE_ENV", "stg")
+K8TRE_DOMAIN = os.environ.get("K8TRE_EXTERNAL_DOMAIN", "k8tre.org")
 BACKEND_URL = os.environ.get(
     "K8TRE_BACKEND_URL",
     f"https://portal.{K8TRE_ENV}.{K8TRE_DOMAIN}"
@@ -127,38 +127,3 @@ c.KubeSpawner.enable_user_namespaces = True
 # Additional settings that were in 04-custom-templates.py
 c.JupyterHub.allow_named_servers = False
 c.JupyterHub.redirect_to_server = False
-
-# Add Kerberos keytab and configuration, if enabled
-c.KubeSpawner.volumes.append({
-  "name": "keytab",
-  "configMap": {
-    "name": "{username}.keytab",
-    "items": [
-      {
-        "key": "keytab",
-        "path": "keytab",
-      }
-    ]
-  }
-})
-c.KubeSpawner.volume_mounts.append({
-  "mountPath": "/keytab",
-  "name": "keytab",
-})
-c.KubeSpawner.volumes.append({
-  "name": "krb5",
-  "configMap": {
-    "name": "krb5.conf",
-    "items": [
-      {
-        "key": "config",
-        "path": "config",
-      }
-    ]
-  }
-})
-c.KubeSpawner.volume_mounts.append({
-  "mountPath": "/etc/krb5.conf",
-  "name": "krb5",
-  "subPath": "config"
-})

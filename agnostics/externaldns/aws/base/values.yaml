@@ -5,11 +5,11 @@ aws:
   # Only modify private Route53 zone
   # This means we can have split DNS (public and private zones) without needing to pass
   # the Zone ID to the operator, just the domain is enough
-  zoneType: public
+  zoneType: private
 
 env:
   - name: AWS_DEFAULT_REGION
-    value: ap-southeast-2
+    value: ${REGION}
 
 serviceAccount:
   create: true
@@ -17,6 +17,7 @@ serviceAccount:
 
 sources:
   - gateway-httproute
+  - ingress
   # - gateway-tlsroute
 
 policy: sync

@@ -1,10 +1,18 @@
+# NOTE: Can't preserve client IP
+# https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#loopback-timeout
+
+# - op: add
+#   path: /spec/infrastructure
+#   value:
+#     annotations:
+#       service.beta.kubernetes.io/aws-load-balancer-type: "external"
+#       service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+#       service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+#       service.beta.kubernetes.io/aws-load-balancer-attributes: "load_balancing.cross_zone.enabled=true"
+#       service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: "preserve_client_ip.enabled=false"
+#       external-dns.alpha.kubernetes.io/hostname: "*.${DOMAIN}"
+#       external-dns.alpha.kubernetes.io/internal-hostname: "*.internal-test.${DOMAIN}"
+
 - op: add
-  path: /spec/infrastructure
-  value:
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: "external"
-      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-      service.beta.kubernetes.io/aws-load-balancer-attributes: "load_balancing.cross_zone.enabled=true"
-      external-dns.alpha.kubernetes.io/hostname: "*.${DOMAIN}"
-      external-dns.alpha.kubernetes.io/internal-hostname: "*.internal-test.${DOMAIN}"
+  path: /spec/gatewayClassName
+  value: nodeport-gateway-class

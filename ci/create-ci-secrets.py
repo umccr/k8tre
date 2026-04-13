@@ -12,7 +12,7 @@ CI Secrets Management for External Secrets Operator
 
 This script creates secrets in a backend store (Kubernetes Secrets or AWS Parameter Store)
 for use with External Secrets Operator in CI environments. It reads configuration from
-secrets.yaml and generates necessary passwords and keys automatically.
+ci-secrets.yaml and generates necessary passwords and keys automatically.
 
 The script supports three modes:
 - Create new secrets (default): Only creates secrets that don't exist
@@ -37,8 +37,9 @@ import json
 import secrets
 import string
 import sys
+from enum import Enum
 from pathlib import Path
-from typing import Annotated, Any, Dict, List, Optional
+from typing import Annotated, Any, Dict, Optional
 
 import typer
 import yaml
@@ -55,6 +56,11 @@ except ImportError:
     ClientError = None
 
 console = Console()
+
+
+class BackendType(str, Enum):
+    kubernetes = "kubernetes"
+    aws_ssm = "aws-ssm"
 
 
 class SecretGenerator:
@@ -104,6 +110,7 @@ class SecretsBackend(abc.ABC):
 
 class KubernetesBackend(SecretsBackend):
     def __init__(self, context: str, namespace: str):
+        self.context = context
         self.namespace = namespace
         try:
             config.load_kube_config(context=context)
@@ -171,7 +178,7 @@ class KubernetesBackend(SecretsBackend):
 class AWSParameterStoreBackend(SecretsBackend):
     def __init__(self, region: Optional[str] = None, prefix: str = ""):
         if boto3 is None:
-            console.print("[red]Error: 'boto3' module is required for 'aws-ssm' backend.[/red]")
+            console.print(f"[red]Error: 'boto3' module is required for '{BackendType.aws_ssm.value}' backend.[/red]")
             sys.exit(1)
 
         self.region = region
@@ -180,7 +187,6 @@ class AWSParameterStoreBackend(SecretsBackend):
             self.prefix += "/"
 
         self.tags = [
-            {"Key": "Environment", "Value": "dev"},
             {"Key": "ManagedBy", "Value": "k8tre/create-ci-secrets"},
         ]
 
@@ -190,8 +196,8 @@ class AWSParameterStoreBackend(SecretsBackend):
                 kwargs["region_name"] = region
             self.ssm = boto3.client("ssm", **kwargs)
         except Exception as e:
-             console.print(f"[red]Error: Failed to initialize AWS SSM client: {e}[/red]")
-             sys.exit(1)
+            console.print(f"[red]Error: Failed to initialize AWS SSM client: {e}[/red]")
+            sys.exit(1)
 
     def _get_name(self, secret_name: str) -> str:
         return f"{self.prefix}{secret_name}"
@@ -213,7 +219,7 @@ class AWSParameterStoreBackend(SecretsBackend):
         try:
             response = self.ssm.get_parameter(Name=self._get_name(secret_name), WithDecryption=True)
             return json.loads(response["Parameter"]["Value"])
-        except Exception:
+        except self.ssm.exceptions.ParameterNotFound:
             return {}
 
     def delete_secret(self, secret_name: str, dry_run: bool):
@@ -256,7 +262,7 @@ class CISecretsManager:
         self.skipped_secrets = []
         self.merged_secrets = []
 
-    def load_secrets_config(self, config_path: str = "secrets.yaml") -> Dict[str, Any]:
+    def load_secrets_config(self, config_path: str) -> Dict[str, Any]:
         """Load secrets configuration from YAML file."""
         try:
             config_file = Path(__file__).parent / config_path
@@ -360,9 +366,9 @@ class CISecretsManager:
                 self.backend.delete_secret(secret_name, self.dry_run)
                 console.print(f"[yellow]Overwriting existing secret: {secret_name}[/yellow]")
             elif secret_exists and self.merge_keys:
-                 # Delete to recreate fresh with merged data (for immutable backend patterns or simplicity)
-                 self.backend.delete_secret(secret_name, self.dry_run)
-                 console.print(f"[cyan]Merging keys into existing secret: {secret_name}[/cyan]")
+                # Delete to recreate fresh with merged data (for immutable backend patterns or simplicity)
+                self.backend.delete_secret(secret_name, self.dry_run)
+                console.print(f"[cyan]Merging keys into existing secret: {secret_name}[/cyan]")
 
             # Create generic secret with final data
             self.backend.create_secret(secret_name, final_data, self.dry_run)
@@ -483,10 +489,10 @@ class CISecretsManager:
             )
 
             if isinstance(self.backend, KubernetesBackend):
-                 console.print("\nTo verify the secrets, run:")
-                 console.print(
-                    f"[cyan]kubectl get secrets -n {self.backend.namespace} --context={self.backend.v1.api_client.configuration.host if hasattr(self.backend, 'v1') else 'context'}[/cyan]"
-                 )
+                console.print("\nTo verify the secrets, run:")
+                console.print(
+                    f"[cyan]kubectl get secrets -n {self.backend.namespace} --context={self.backend.context}[/cyan]"
+                )
 
             if self.generated_values:
                 console.print(
@@ -523,7 +529,7 @@ def main(
     merge_keys: Annotated[
         bool, typer.Option(help="Merge new keys into existing secrets without overwriting existing keys (default: False)")
     ] = False,
-    backend: Annotated[str, typer.Option(help="Backend to use: 'kubernetes' or 'aws-ssm'")] = "kubernetes",
+    backend: Annotated[BackendType, typer.Option(help="Backend to use")] = BackendType.kubernetes,
     region: Annotated[Optional[str], typer.Option(help="AWS backend: AWS Region (optional if configured in environment/profile)")] = None,
     prefix: Annotated[str, typer.Option(help="AWS backend: Prefix for AWS SSM parameters")] = "",
     config: Annotated[
@@ -556,13 +562,15 @@ def main(
 
     # Select Backend
     secrets_backend: SecretsBackend
-    if backend == "aws-ssm":
+    if backend == BackendType.aws_ssm:
         secrets_backend = AWSParameterStoreBackend(region=region, prefix=prefix)
-    else:
+    elif backend == BackendType.kubernetes:
         if not context:
             console.print("[red]Error: --context is required for kubernetes backend[/red]")
             raise typer.Exit(code=1)
         secrets_backend = KubernetesBackend(context=context, namespace=namespace)
+    else:
+        raise NotImplementedError(f"Invalid backend: {backend}")
 
     # Initialize secrets manager with backend
     manager = CISecretsManager(
